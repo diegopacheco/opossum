@@ -13,6 +13,7 @@ require('../health-check-test.js');
 require('../options-test.js');
 require('../semaphore-test.js');
 require('../state-test.js');
+require('../status-test.js');
 require('../test.js');
 require('../volume-threshold-test.js');
 require('../warmup-test.js');
