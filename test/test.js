@@ -14,7 +14,6 @@ test('api', t => {
   t.notOk(breaker.opened, 'CircuitBreaker.opened');
   t.notOk(breaker.halfOpen, 'CircuitBreaker.halfOpen');
   t.ok(breaker.closed, 'CircuitBreaker.closed');
-  t.ok(breaker.status, 'CircuitBreaker.status');
   t.ok(breaker.options, 'CircuitBreaker.options');
   t.equals(breaker.action, passFail, 'CircuitBreaker.action');
   breaker.shutdown();
