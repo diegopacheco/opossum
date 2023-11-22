@@ -5,6 +5,13 @@ const app = express();
 const port = 8080;
 
 const CircuitBreaker = require('opossum');
+const options = {
+  timeout: 3000,
+  errorThresholdPercentage: 50,
+  resetTimeout: 30000
+};
+
+const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 function asyncFunctionThatCouldFail (_x, _y) {
   return new Promise((resolve, reject) => {
@@ -18,24 +25,7 @@ function dummyProc () {
   console.log('ok');
 }
 
-app.get('/status', (req, res) => {
-  const options = {
-    timeout: 3000,
-    errorThresholdPercentage: 50,
-    resetTimeout: 30000
-  };
-  console.log('Status', CircuitBreaker.newStatus(options));
-  res.send(CircuitBreaker.newStatus(options));
-});
-
 app.get('/', (req, res) => {
-  const options = {
-    timeout: 3000,
-    errorThresholdPercentage: 50,
-    resetTimeout: 30000
-  };
-  const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
-
   breaker.fire(dummyProc())
     .then(console.log)
     .catch(console.error);
